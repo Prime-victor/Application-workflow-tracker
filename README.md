@@ -180,6 +180,24 @@ The sequence resets each year and increments per created application.
 - Add pagination for larger datasets
 - Add richer audit history for every workflow transition
 - Add environment-based API configuration
+## Screenshots
+
+### Application Dashboard
+
+![Application Dashboard](https://i.postimg.cc/d02cjV2H/applications.jpg)
+
+### Create Application Form
+
+![Create Application Form](https://i.postimg.cc/4dYMF4Vd/appform.jpg)
+
+### Application Detail View
+
+![Application Detail](https://i.postimg.cc/XqTsPw3T/application-details.jpg)
+
+### Reviewer Decision Workflow
+
+![Reviewer Decision](https://i.postimg.cc/k4PX7Hch/review.jpg)
+
 
 ## Deployment
 
