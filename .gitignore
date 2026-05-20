@@ -4,4 +4,7 @@ Backend/db.sqlite3
 Backend/**/*.pyc
 Frontend/node_modules/
 Frontend/dist/
+Frontend/*.tsbuildinfo
+Frontend/vite.config.js
+Frontend/vite.config.d.ts
 .venv
