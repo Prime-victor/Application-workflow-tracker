@@ -1,5 +1,8 @@
 # Mini Application Workflow Tracker
 
+Name: Victor Kiptum  
+Email: victorkiptum85@gmail.com
+
 A full-stack take-home assignment project for managing a small application review workflow.
 
 The system allows users to create draft applications, submit them for review, move them into review, and record reviewer decisions with backend-enforced workflow rules.
@@ -15,14 +18,14 @@ This project includes:
 
 ## Tech Stack
 
-### Backend
+### backend
 
 - Django
 - Django Ninja
 - SQLite
 - django-cors-headers
 
-### Frontend
+### frontend
 
 - React
 - TypeScript
