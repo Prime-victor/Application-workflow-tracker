@@ -128,6 +128,12 @@ The frontend will run at:
 http://localhost:5173
 ```
 
+Environment variable for local frontend API:
+
+```bash
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
 ## Running Migrations
 
 If you make backend model changes later:
@@ -174,6 +180,73 @@ The sequence resets each year and increments per created application.
 - Add pagination for larger datasets
 - Add richer audit history for every workflow transition
 - Add environment-based API configuration
+
+## Deployment
+
+This project is set up to deploy with:
+
+- Render for the Django backend
+- Vercel for the React frontend
+
+### Deploy Backend to Render
+
+Render recommends binding your service to the platform port and using a production web server for Python web services. Render's Django guide also recommends using a build script and production dependencies such as Gunicorn and WhiteNoise:
+
+- Render Django guide: https://render.com/docs/deploy-django
+- Render web services docs: https://render.com/docs/web-services
+
+Backend deployment files/config included:
+
+- `Backend/build.sh`
+- `Backend/.env.example`
+- production-friendly settings in `Backend/config/settings.py`
+
+Create a Render Web Service with:
+
+- Root Directory: `Backend`
+- Build Command: `./build.sh`
+- Start Command: `gunicorn config.wsgi:application --bind 0.0.0.0:$PORT`
+
+Recommended Render environment variables:
+
+```text
+DJANGO_SECRET_KEY=<generate-a-secure-value>
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS=<your-render-service>.onrender.com
+CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
+CSRF_TRUSTED_ORIGINS=https://<your-vercel-app>.vercel.app
+DATABASE_URL=<render-postgres-internal-url>
+```
+
+Notes:
+
+- Render requires web services to bind to `0.0.0.0` and typically provides the port via `PORT`
+- SQLite is fine for local development, but Render production should use PostgreSQL
+- The backend now supports `DATABASE_URL` via environment variables and falls back to SQLite locally
+
+### Deploy Frontend to Vercel
+
+Vercel supports Vite projects directly, and its Vite docs note that SPA projects using client-side routing should add a rewrite to `index.html` for deep links:
+
+- Vite on Vercel: https://vercel.com/docs/frameworks/frontend/vite
+
+Frontend deployment files/config included:
+
+- `Frontend/.env.example`
+- `Frontend/vercel.json`
+
+Create a Vercel project with:
+
+- Root Directory: `Frontend`
+- Framework Preset: `Vite`
+
+Set this environment variable in Vercel:
+
+```text
+VITE_API_BASE_URL=https://<your-render-service>.onrender.com/api
+```
+
+Then redeploy the frontend after the backend URL is available.
 
 ## Notes
 
